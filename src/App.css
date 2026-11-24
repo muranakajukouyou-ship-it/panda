@@ -1,0 +1,450 @@
+:root {
+  --panda-white: #ffffff;
+  --panda-black: #2b2b2b;
+  --panda-gray: #f4f6f4;
+  --bamboo-green: #589a67;
+  --bamboo-light: #e8f3ea;
+  --bamboo-dark: #427a4f;
+  --border-color: #dce5de;
+  --paw-tint: rgba(43, 43, 43, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  background-color: var(--panda-gray);
+  background-image: radial-gradient(var(--border-color) 1.2px, transparent 1.2px);
+  background-size: 20px 20px;
+  color: var(--panda-black);
+  line-height: 1.6;
+}
+
+/* コンテナ */
+.board-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 28px 16px 16px;
+}
+
+/* ヘッダー（もっとつるんとした楕円のお顔シルエット） */
+.board-header {
+  position: relative;
+  max-width: 350px;
+  margin: 36px auto 24px;
+  background-color: var(--panda-white);
+  border: 3px solid var(--panda-black);
+  border-radius: 50%;
+  padding: 28px 40px 36px; /* 1枚目より縦を少し詰めて、2枚目よりまるさを残す */
+  text-align: center;
+  box-shadow: 0 5px 0 var(--panda-black);
+  z-index: 1;
+  min-height: 200px; /* ← 1行になってもこの高さ以下にしぼまないようにする */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* 左耳 */
+.board-header::before {
+  content: '';
+  position: absolute;
+  top: -22px;
+  left: 40px;
+  width: 64px;
+  height: 64px;
+  background-color: var(--panda-black);
+  border-radius: 50%;
+  z-index: -1;
+  transform: rotate(-16deg);
+  transition: transform 0.25s ease;
+}
+
+/* 右耳 */
+.board-header::after {
+  content: '';
+  position: absolute;
+  top: -22px;
+  right: 40px;
+  width: 64px;
+  height: 64px;
+  background-color: var(--panda-black);
+  border-radius: 50%;
+  z-index: -1;
+  transform: rotate(16deg);
+  transition: transform 0.25s ease;
+}
+
+.board-header:hover::before {
+  transform: translateY(-4px) rotate(-24deg);
+}
+
+.board-header:hover::after {
+  transform: translateY(-4px) rotate(24deg);
+}
+
+.board-title {
+  position: relative;
+  font-size: 1.65rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding-bottom: 20px;
+}
+
+/* ぽてっとした黒いお鼻 */
+.board-title::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 17px;
+  background-color: var(--panda-black);
+  border-radius: 50% 50% 65% 65%;
+}
+
+
+.board-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.board-subtitle {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 6px;
+}
+
+/* 投稿フォーム */
+.post-form-card {
+  position: relative;
+  background-color: var(--panda-white);
+  border: 2.5px solid var(--bamboo-green);
+  border-radius: 18px;
+  padding: 20px 18px;
+  margin-bottom: 24px;
+  box-shadow: 0 3px 0 rgba(88, 154, 103, 0.25);
+}
+
+.form-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--bamboo-dark);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1.5px solid var(--border-color);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  background-color: #fcfdfb;
+  min-height: 96px;
+  resize: vertical;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-textarea:focus {
+  outline: none;
+  background-color: var(--panda-white);
+  border-color: var(--bamboo-green);
+  box-shadow: 0 0 0 3px rgba(88, 154, 103, 0.16);
+}
+
+/* 画像添付エリア */
+.image-upload-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.image-upload-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  background-color: var(--bamboo-light);
+  color: var(--bamboo-dark);
+  border: 1.5px dashed var(--bamboo-green);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.15s;
+}
+
+.image-upload-label:hover {
+  background-color: #d8ebd9;
+  transform: translateY(-1px);
+}
+
+.image-file-input {
+  display: none;
+}
+
+.image-preview-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  background-color: var(--panda-gray);
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.image-preview {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.remove-image-button {
+  background-color: #ffffff;
+  color: #555;
+  border: 1px solid #ccc;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.remove-image-button:hover {
+  background-color: #eee;
+}
+
+.submit-button {
+  width: 100%;
+  background-color: var(--panda-black);
+  color: var(--panda-white);
+  border: 2px solid var(--panda-black);
+  border-radius: 12px;
+  padding: 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 3px 0 var(--bamboo-green);
+  transition: background-color 0.2s, transform 0.1s, box-shadow 0.1s;
+}
+
+.submit-button:hover {
+  background-color: var(--bamboo-dark);
+  border-color: var(--bamboo-dark);
+}
+
+.submit-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--bamboo-green);
+}
+
+/* 投稿一覧 */
+.posts-section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  padding-left: 10px;
+  border-left: 5px solid var(--bamboo-green);
+}
+
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* 各投稿カード（レス）＋肉球モチーフ */
+.post-card {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--panda-white);
+  border: 2px solid var(--border-color);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 0 rgba(43, 43, 43, 0.05);
+  transition: border-color 0.25s, background-color 0.25s, box-shadow 0.25s, transform 0.2s;
+}
+
+.post-card:hover {
+  border-color: #c5d6c9;
+  transform: translateY(-1px);
+}
+
+/* 右下にうっすら見える肉球モチーフ */
+.post-card::after {
+  content: '';
+  position: absolute;
+  right: -10px;
+  bottom: -10px;
+  width: 72px;
+  height: 72px;
+  pointer-events: none;
+  opacity: 0.06;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%232b2b2b'%3E%3Cellipse cx='50' cy='62' rx='22' ry='17'/%3E%3Ccircle cx='24' cy='39' r='9'/%3E%3Ccircle cx='42' cy='27' r='9'/%3E%3Ccircle cx='58' cy='27' r='9'/%3E%3Ccircle cx='76' cy='39' r='9'/%3E%3C/svg%3E");
+  transform: rotate(-16deg);
+  transition: opacity 0.25s, transform 0.25s;
+}
+
+.post-card:hover::after {
+  opacity: 0.11;
+  transform: rotate(-8deg) scale(1.05);
+}
+
+.post-card--highlighted {
+  background-color: var(--bamboo-light);
+  border-color: var(--bamboo-green);
+  box-shadow: 0 0 0 3px rgba(88, 154, 103, 0.25);
+}
+
+.post-meta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #666;
+  border-bottom: 1px dashed var(--border-color);
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+}
+
+.post-number {
+  font-weight: 700;
+  color: var(--bamboo-dark);
+}
+
+.reply-anchor-button {
+  background-color: var(--panda-gray);
+  color: var(--bamboo-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  padding: 1px 9px;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.reply-anchor-button:hover {
+  background-color: var(--bamboo-green);
+  color: var(--panda-white);
+  border-color: var(--bamboo-green);
+}
+
+.post-author {
+  font-weight: 700;
+  color: var(--panda-black);
+  background-color: var(--bamboo-light);
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+
+.post-date {
+  margin-left: auto;
+  font-size: 0.8rem;
+}
+
+.post-body {
+  position: relative;
+  z-index: 1;
+  font-size: 0.98rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.anchor-link {
+  display: inline;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 700;
+  color: var(--bamboo-dark);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.anchor-link:hover {
+  color: var(--panda-black);
+}
+
+.post-image-wrap {
+  position: relative;
+  z-index: 1;
+  margin-top: 10px;
+}
+
+.post-image {
+  max-width: 100%;
+  max-height: 320px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border-color);
+  object-fit: contain;
+  display: block;
+}
+
+/* フッター */
+.board-footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #777;
+  margin-top: 32px;
+  padding-bottom: 16px;
+}
+
+/* スマホ画面向けの微調整 */
+@media (max-width: 480px) {
+  .board-header::before {
+    left: 28px;
+    top: -22px;
+    width: 54px;
+    height: 54px;
+  }
+
+  .board-header::after {
+    right: 28px;
+    top: -22px;
+    width: 54px;
+    height: 54px;
+  }
+
+  .board-title {
+    font-size: 1.38rem;
+  }
+
+  .post-date {
+    margin-left: 0;
+    width: 100%;
+  }
+}
